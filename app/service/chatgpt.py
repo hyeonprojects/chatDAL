@@ -8,15 +8,14 @@ openai.api_key = get_secret("openai_api_key")
 class ChatGptApi:
     def __init__(self):
         self._model = 'gpt-3.5-turbo'
+
     @property
     def model(self):
-        return self.model
+        return self._model
 
     async def answer_message(self, message: str) -> str:
-        response = openai.Completion.create(
-            model=self._model,
-            message=message,
-        )
+        message = [
+            {"role": "system", "content": "You are a helpful assistant"},
+            {"role": "user", "content": "Translate the following English text to French: Korea"}
+        ]
 
-    async def num_tokens_from_messages(self, messages, model='gpt-3.5'):
-        pass
