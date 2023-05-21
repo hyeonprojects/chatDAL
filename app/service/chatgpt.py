@@ -14,8 +14,12 @@ class ChatGptApi:
         return self._model
 
     async def answer_message(self, message: str) -> str:
-        message = [
+        messages = [
             {"role": "system", "content": "You are a helpful assistant"},
-            {"role": "user", "content": "Translate the following English text to French: Korea"}
+            {"role": "user", "content": "{}".format(message)}
         ]
 
+        openai.ChatCompletion.create(
+            model=self._model,
+            messages=messages
+        )
